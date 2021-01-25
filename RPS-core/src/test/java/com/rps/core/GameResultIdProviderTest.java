@@ -1,8 +1,8 @@
 package com.rps.core;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public abstract class GameResultIdProviderTest {
 
@@ -10,7 +10,7 @@ public abstract class GameResultIdProviderTest {
 
     protected abstract GameResultIdProvider getGameResultIdProvider();
 
-    @BeforeEach
+    @Before
     public void setup() { gameResultIdProvider = getGameResultIdProvider(); }
 
     @Test

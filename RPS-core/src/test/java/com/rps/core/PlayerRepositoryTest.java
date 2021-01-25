@@ -1,11 +1,11 @@
 package com.rps.core;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 public abstract class PlayerRepositoryTest {
 
@@ -13,7 +13,7 @@ public abstract class PlayerRepositoryTest {
 
     protected abstract PlayerRepository getPlayerRepository();
 
-    @BeforeEach
+    @Before
     public void setup() {
         playerRepository = getPlayerRepository();
         playerRepository.save( new Player(  "Wonder Woman", 1));

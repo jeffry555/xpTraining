@@ -1,18 +1,18 @@
 package com.rps.core;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 
 public class DefaultGetPlayersUseCaseTest {
 
     DefaultGetPlayersUseCase defaultGetPlayersUseCase;
     InMemoryPlayerRepository playerRepository;
 
-    @BeforeEach
+    @Before
     public void setup(){
         playerRepository = new InMemoryPlayerRepository();
         defaultGetPlayersUseCase = new DefaultGetPlayersUseCase(playerRepository);

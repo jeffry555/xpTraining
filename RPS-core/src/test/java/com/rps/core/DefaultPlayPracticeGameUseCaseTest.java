@@ -1,17 +1,17 @@
 package com.rps.core;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import static com.rps.core.Outcome.*;
 import static com.rps.core.Throw.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 
 public class DefaultPlayPracticeGameUseCaseTest {
 
     DefaultPlayPracticeGameUseCase defaultCreateGameResultUseCase;
 
-    @BeforeEach
+    @Before
     public void setup(){
 
         defaultCreateGameResultUseCase = new DefaultPlayPracticeGameUseCase( );

@@ -1,8 +1,9 @@
 package com.rps.core;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class DefaultCreateGameResultUseCaseTest {
 
@@ -10,7 +11,7 @@ public class DefaultCreateGameResultUseCaseTest {
     GameResultRepository gameResultRepository;
     GameResultIdProvider gameResultIdProvider;
 
-    @BeforeEach
+    @Before
     public void setup(){
         gameResultRepository = new InMemoryGameResultRepository();
         gameResultIdProvider = new StubGameResultIdProvider();

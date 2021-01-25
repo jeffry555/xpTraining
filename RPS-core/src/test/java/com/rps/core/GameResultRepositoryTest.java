@@ -1,11 +1,11 @@
 package com.rps.core;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Test;
+import org.junit.Before;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 public abstract class GameResultRepositoryTest {
 
@@ -15,7 +15,7 @@ public abstract class GameResultRepositoryTest {
     protected abstract GameResultRepository getGameResultRepository();
     protected abstract PlayerRepository getPlayerRepository();
 
-    @BeforeEach
+    @Before
     public void setup() {
         gameResultRepository = getGameResultRepository();
         playerRepository = getPlayerRepository();
