@@ -146,7 +146,7 @@ public class RpsRestControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request))
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().is4xxClientError())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.outcome",
                         is(Config.stubCreateGameResultUseCase.stubbedCreateGameResultUseCaseResponse.getOutcome().toString() )));
 
