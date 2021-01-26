@@ -38,6 +38,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+@AutoConfigureMockMvc
 public class RpsRestControllerTest {
 
     private GameResult stubbedCreateGameUseCaseResponse;
@@ -103,7 +105,7 @@ public class RpsRestControllerTest {
 
     private MockMvc mvc;
 
-    //@Before
+    @Before
     public void setup(){
 
         stubbedCreateGameUseCaseResponse = Config.stubCreateGameResultUseCase.stubbedCreateGameResultUseCaseResponse;
