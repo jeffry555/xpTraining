@@ -10,6 +10,10 @@ create user RPS_USER identified by 'Rps';
 
 GRANT ALL on RPS.* to RPS_USER;
 
+CREATE USER IF NOT EXISTS 'RPS_USER'@'localhost' IDENTIFIED BY 'Rps';
+
+GRANT ALL PRIVILEGES ON RPS . * TO 'RPS_USER'@'localhost';
+
 
 create database RPS_TEST;
 use RPS;
@@ -17,6 +21,10 @@ use RPS;
 create user RPS_USER_TEST identified by 'RpsTest';
 
 GRANT ALL on RPS_TEST.* to RPS_USER_TEST;
+
+CREATE USER IF NOT EXISTS 'RPS_USER_TEST'@'localhost' IDENTIFIED BY 'RpsTest'
+
+
 
 
 SET GLOBAL time_zone = '+3:00';
