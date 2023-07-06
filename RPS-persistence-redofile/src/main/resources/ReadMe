@@ -1,0 +1,4 @@
+
+This component persists the data by storing it an append only redo file where each record is
+stored in an in-core data map and written out to a file for persistence.
+

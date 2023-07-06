@@ -11,6 +11,7 @@
     <modules>
         <module>RPS-core</module>
         <module>RPS-persistence</module>
+        <module>RPS-persistence-redofile</module>
         <module>RPS-rest</module>
         <module>RPS-web</module>
     </modules>
