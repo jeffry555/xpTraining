@@ -2,6 +2,7 @@ package com.rps.persistence;
 
 import com.rps.core.PlayerRepository;
 import com.rps.core.PlayerRepositoryTest;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +13,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 public class DatabasePlayerRepositoryTest extends PlayerRepositoryTest {
     @Autowired
     DatabasePlayerRepository databasePlayerRepository;
+
+    @Autowired
+    DatabaseCleaner databaseCleaner;
+
+    @BeforeEach
+    public void cleanDB(){ databaseCleaner.deleteAllRows();}
 
     @Override
     protected PlayerRepository getPlayerRepository() {

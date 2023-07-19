@@ -4,6 +4,7 @@ import com.rps.core.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @RestController
@@ -17,14 +18,18 @@ public class RpsRestController {
     private final GetPlayerStatsUseCase getPlayerStatsUseCase;
     private final GetPlayerGameRecordsUseCase getPlayerGameRecordsUseCase;
 
+    private final CreateInitialPlayersUseCase createInitialPlayersUseCase;
+
     @Autowired
     RpsRestController(CreateGameResultUseCase createGameResultUseCase, PlayPracticeGameUseCase playPracticeGameUseCase,
-                      GetPlayersUseCase getPlayersUseCase, GetPlayerStatsUseCase getPlayerStatsUseCase, GetPlayerGameRecordsUseCase getPlayerGameRecordsUseCase){
+                      GetPlayersUseCase getPlayersUseCase, GetPlayerStatsUseCase getPlayerStatsUseCase,
+                      GetPlayerGameRecordsUseCase getPlayerGameRecordsUseCase, CreateInitialPlayersUseCase createInitialPlayersUseCase ){
         this.createGameResultUseCase = createGameResultUseCase;
         this.playPracticeGameUseCase = playPracticeGameUseCase;
         this.getPlayersUseCase = getPlayersUseCase;
         this.getPlayerStatsUseCase = getPlayerStatsUseCase;
         this.getPlayerGameRecordsUseCase = getPlayerGameRecordsUseCase;
+        this.createInitialPlayersUseCase = createInitialPlayersUseCase;
     }
 
     @PostMapping
@@ -55,5 +60,10 @@ public class RpsRestController {
     @GetMapping("/playerGameRecords/{id}")
     public List<GameRecord> getPlayerGameRecords( @PathVariable String id ){
         return getPlayerGameRecordsUseCase.execute( Integer.parseInt( id ));
+    }
+
+    @PostConstruct
+    public void init(){
+        createInitialPlayersUseCase.execute();
     }
 }

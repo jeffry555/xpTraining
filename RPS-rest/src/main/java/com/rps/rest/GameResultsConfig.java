@@ -40,6 +40,11 @@ public class GameResultsConfig {
     }
 
     @Bean
+    public CreateInitialPlayersUseCase createInitialPlayersUseCase( PlayerRepository databasePlayerRepository ){
+        return new DefaultCreateInitialPlayersUseCase( databasePlayerRepository );
+    }
+
+    @Bean
     public DataSource datasource() {
         return DataSourceBuilder.create()
                 .driverClassName("com.mysql.cj.jdbc.Driver")

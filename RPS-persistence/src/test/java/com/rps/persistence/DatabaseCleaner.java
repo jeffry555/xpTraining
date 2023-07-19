@@ -11,5 +11,6 @@ public class DatabaseCleaner {
 
     public void deleteAllRows(){
         jdbcTemplate.execute("delete from game_results");
+        jdbcTemplate.execute("delete from players");
     }
 }

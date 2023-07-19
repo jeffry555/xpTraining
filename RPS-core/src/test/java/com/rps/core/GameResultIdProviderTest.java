@@ -10,13 +10,14 @@ public abstract class GameResultIdProviderTest {
 
     protected abstract GameResultIdProvider getGameResultIdProvider();
 
-    @BeforeEach
-    public void setup() { gameResultIdProvider = getGameResultIdProvider(); }
 
     @Test
     public void returnsSequence(){
+        gameResultIdProvider = getGameResultIdProvider();
         int first = gameResultIdProvider.getId();
+        gameResultIdProvider = getGameResultIdProvider();
         int second = gameResultIdProvider.getId();
+        gameResultIdProvider = getGameResultIdProvider();
         int third = gameResultIdProvider.getId();
 
         assertEquals( (first + 1), second );
