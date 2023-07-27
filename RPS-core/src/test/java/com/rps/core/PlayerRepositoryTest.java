@@ -3,7 +3,9 @@ package com.rps.core;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,20 +15,21 @@ public abstract class PlayerRepositoryTest {
 
     protected abstract PlayerRepository getPlayerRepository();
 
-    @BeforeEach
-    public void setup() {
-        playerRepository = getPlayerRepository();
-        playerRepository.save( new Player(  "Wonder Woman", 1));
-        playerRepository.save( new Player( "Deadpool", 8));
-    }
-
     @Test
     public void canGetPlayerList() {
+        playerRepository = getPlayerRepository();
+        playerRepository.save( new Player(  "Wonder Woman", 1));
+        playerRepository.save( new Player( "Deadpool", 2));
+
+        playerRepository = getPlayerRepository();
         List<Player> playerList = playerRepository.findAll();
-        assertEquals( 8, playerList.size() );
-        assertEquals( "Wonder Woman", playerList.get(0).getName());
-        assertEquals( 1, playerList.get(0).getId());
-        assertEquals( "Deadpool", playerList.get(7).getName());
-        assertEquals( 8, playerList.get(7).getId());
+
+        Set<Player> expected = new HashSet<>();
+        expected.add( new Player( "Wonder Woman", 1));
+        expected.add( new Player( "Deadpool", 2));
+
+        assertEquals( expected.size(), playerList.size() );
+        assert( expected.equals( new HashSet<>( playerList )) );
+
     }
 }

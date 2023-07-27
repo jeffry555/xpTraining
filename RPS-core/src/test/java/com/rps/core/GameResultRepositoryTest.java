@@ -15,14 +15,11 @@ public abstract class GameResultRepositoryTest {
     protected abstract GameResultRepository getGameResultRepository();
     protected abstract PlayerRepository getPlayerRepository();
 
-    @BeforeEach
-    public void setup() {
-        gameResultRepository = getGameResultRepository();
-        playerRepository = getPlayerRepository();
-    }
 
     @Test
     public void canGetResults(){
+        gameResultRepository = getGameResultRepository();
+        playerRepository = getPlayerRepository();
         Player player1 = new Player("Jane Doe", 1 );
         playerRepository.save( player1 );
         Player player2 = new Player("John Doe", 2 );
@@ -36,14 +33,18 @@ public abstract class GameResultRepositoryTest {
 
     @Test
     public void canGetResultsById(){
+        gameResultRepository = getGameResultRepository();
+        playerRepository = getPlayerRepository();
         Player player1 = new Player("Jane Smith", 1 );
         playerRepository.save( player1 );
         Player player2 = new Player("John Smith", 2 );
         playerRepository.save( player2 );
         GameResult gameResult = new GameResult(player1, player2, Outcome.P1_WINS, Throw.PAPER, Throw.ROCK, 1 );
         gameResultRepository.save( gameResult );
+        gameResultRepository = getGameResultRepository();
         gameResult = new GameResult(player1, player2, Outcome.P2_WINS, Throw.PAPER, Throw.SCISSORS, 2 );
         gameResultRepository.save( gameResult );
+        gameResultRepository = getGameResultRepository();
         GameResult gameResultById = gameResultRepository.findById(2);
         assertEquals(gameResultById.getOutcome(), Outcome.P2_WINS );
         assertEquals( true, gameResult.equals( gameResultById ));
