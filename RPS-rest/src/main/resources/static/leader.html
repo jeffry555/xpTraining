@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+  <title>Leader Board</title>
+  <style>
+    	* { font-family: calibri; font-size: 20px; }
+    </style>
+</head>
+<body>
+<div id="headerbar"></div>
+
+<p>
+  LEADER BOARD
+</p>
+<style type="text/css">
+  .tg  {border-collapse:collapse;border-spacing:5;}
+  .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+  </style>
+
+<table class="tg">
+  <thead>
+  <tr>
+    <th>Player</th>
+    <th>Winning Percentage</th>
+    <th>Number of Games</th>
+    <th>Wins</th>
+    <th>Losses</th>
+    <th>Ties</th>
+    <th>Rocks Thrown (%)</th>
+    <th>Papers Thrown (%)</th>
+    <th>Scissors Thrown (%)</th>
+  </tr>
+  </thead>
+  <tbody id="data">
+</table>
+
+<button onclick="getPlayerStats()">Refresh</button>
+
+<p id="msg"></p>
+
+
+
+<p>
+</body>
+
+<script src="header.js"></script>
+
+<script>
+    window.onload = init();
+
+    function init(){
+      setHeader();
+      getPlayerStats();
+      }
+
+    var data = "";
+
+    async function getPlayerStats() {
+      const response = await fetch("http://localhost:8080/api/gameResults/playerStats");
+      const stats = await response.json();
+
+      data = "";
+      for (let i = 0; i < stats.length; i++) {
+          startRow(  );
+          col( stats[i].player.name );
+          col( stats[i].winPercentage );
+          col( stats[i].gamesPlayed );
+          col( stats[i].gamesWon );
+          col( stats[i].gamesLost );
+          col( stats[i].gamesTied );
+          col( stats[i].rockPercent );
+          col( stats[i].paperPercent );
+          col( stats[i].scissorsPercent );
+          endRow(  )
+      }
+
+      document.getElementById('data').innerHTML = data;
+      console.log( "HREF: " + window.location.href );
+    }
+
+    function startRow( ){
+      data += "<tr>";
+    }
+
+    function endRow( ){
+      data += "</tr>";
+    }
+
+    function col( value ){
+      data += "<td>" + value + "</td>";
+    }
+
+</script>
+</html>

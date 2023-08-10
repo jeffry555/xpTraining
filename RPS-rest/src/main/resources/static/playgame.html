@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+  <title>Play Game</title>
+  <style>
+    	* { font-family: calibri; font-size: 20px; }
+    </style>
+</head>
+<body>
+<div id="headerbar"></div>
+
+<h2>Play Game</h2>
+
+<div>
+<label>Player1:</label>
+<select id="player1" onchange="show(this)">
+  <option value="">--</option>
+</select>
+<label>Player1 Throw:</label>
+<select id="throw1" onchange="show(this)">
+  <option value="">--</option>
+</select>
+</div>
+
+<div>
+<label>Player2:</label>
+<select id="player2" onchange="show(this)">
+  <option value="">--</option>
+</select>
+  <label>Player2 Throw:</label>
+<select id="throw2" onchange="show(this)">
+  <option value="">--</option>
+</select>
+</div>
+
+<button onclick="playGame()">Play Game</button>
+
+<p id="msg"></p>
+
+
+</body>
+
+<script src="header.js"></script>
+
+<script>
+    window.onload = init();
+
+    function init(){
+      setHeader();
+      populateSelect();
+      }
+
+
+    async function populateSelect() {
+      const response = await fetch("http://localhost:8080/api/gameResults/playerList");
+      const players = await response.json();
+
+      for (let i = 0; i < players.length; i++) {
+        addItem( 'player1', players[i].id , players[i].name );
+        addItem( 'player2', players[i].id , players[i].name );
+
+      }
+      let throws = [
+            {"id": "ROCK", "name": "Rock"},
+            {"id": "PAPER", "name": "Paper"},
+            {"id": "SCISSORS", "name": "Scissors"},
+        ];
+
+      for (let i = 0; i < throws.length; i++) {
+        addItem( 'throw1', throws[i].id , throws[i].name );
+        addItem( 'throw2', throws[i].id , throws[i].name );
+      }
+      console.log( "HREF: " + window.location.href );
+    }
+
+    async function playGame() {
+
+      const response = await fetch("http://localhost:8080/api/gameResults", {
+            method: "POST",
+            body: JSON.stringify({
+              player1: { id: getValue('player1'), name: getText('player1') },
+              player2: { id: getValue('player2'), name: getText('player2') },
+              player1Throw: getValue( 'throw1' ),
+              player2Throw: getValue( 'throw2' )
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8"
+            }
+          });
+      const resp = await response.json();
+      showResults( resp.outcome );
+    }
+
+
+    function show(ele) {
+        // Get the selected value from <select> element and show it.
+        let msg = document.getElementById('msg');
+        msg.innerHTML = 'Selected Player: <b>' + ele.options[ele.selectedIndex].text + '</b> </br>' +
+            'ID: <b>' + ele.value + '</b>';
+    }
+
+    function addItem( element, id, name ){
+      var e = document.getElementById( element );
+      e.innerHTML = e.innerHTML +
+          '<option value="' + id + '">' + name + '</option>';
+    }
+
+    function getValue( element ){
+      var e = document.getElementById( element );
+      return e.value;
+    }
+
+    function getText( element ){
+      var e = document.getElementById( element );
+      return e.options[e.selectedIndex].text;
+    }
+
+    function showResults( message ){
+      var e = document.getElementById( 'msg' );
+      msg.innerHTML = message;
+    }
+
+</script>
+</html>
